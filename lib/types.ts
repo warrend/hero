@@ -4,6 +4,10 @@ export type HeroResponse = {
   results: Hero[];
 };
 
+export type HeroByIdResponse = {
+  response: string;
+} & Hero;
+
 export type Hero = {
   id: string;
   name: string;

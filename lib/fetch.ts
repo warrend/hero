@@ -1,4 +1,4 @@
-import { HeroResponse } from './types';
+import { HeroByIdResponse, HeroResponse } from './types';
 
 const BASE_URL = `https://superheroapi.com/api/${process.env.NEXT_PUBLIC_SUPERHERO_API_KEY}`;
 
@@ -32,6 +32,6 @@ export async function searchSuperhero(
   return await get<HeroResponse>(`/search/${superhero}`);
 }
 
-export async function getHeroById(id: string): Promise<HeroResponse> {
-  return await get<HeroResponse>(`/${id}`);
+export async function getHeroById(id: string): Promise<HeroByIdResponse> {
+  return await get<HeroByIdResponse>(`/${id}`);
 }

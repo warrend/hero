@@ -1,6 +1,7 @@
 import { searchSuperhero } from '@/lib/fetch';
 import Link from 'next/link';
 import React from 'react';
+import TeamSelect from '../team-select';
 
 export default async function HeroList({ query }: { query: string }) {
   const data = await searchSuperhero(query);
@@ -8,9 +9,12 @@ export default async function HeroList({ query }: { query: string }) {
   return (
     <div>
       {data?.results?.map((hero) => (
-        <Link href={`/superheroes/${hero.id}`} key={hero.id}>
-          <div>{hero.name}</div>
-        </Link>
+        <div key={hero.id} className="p-2 border-b">
+          <Link href={`/superheroes/${hero.id}`}>
+            <div>{hero.name}</div>
+          </Link>
+          <TeamSelect heroId={hero.id} heroName={hero.name} />
+        </div>
       ))}
     </div>
   );

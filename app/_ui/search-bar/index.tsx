@@ -26,7 +26,7 @@ export default function Search() {
 
     debounceRef.current = setTimeout(() => {
       handleSearch(term);
-    }, 300);
+    }, 500);
   }
 
   return (

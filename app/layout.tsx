@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono, Inter } from 'next/font/google';
 import './globals.css';
+import { TeamProvider } from '@/lib/team-provider';
 
 export const inter = Inter({ subsets: ['latin'] });
 
@@ -16,7 +17,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className}`}>{children}</body>
+      <body className={`${inter.className}`} suppressHydrationWarning={true}>
+        <TeamProvider>
+          <div className="p-4">{children}</div>
+        </TeamProvider>
+      </body>
     </html>
   );
 }
