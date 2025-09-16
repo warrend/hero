@@ -16,8 +16,6 @@ export default function TeamSelect({
   const team1Check = state.team1.some((h) => h.id === heroId);
   const team2Check = state.team2.some((h) => h.id === heroId);
 
-  console.log({ state, team1Check, team2Check });
-
   return (
     <div>
       <button
