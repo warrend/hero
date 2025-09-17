@@ -1,0 +1,9 @@
+.team-list {
+  background: var(--color-slate-200);
+  padding: var(--large);
+
+  .teams {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}

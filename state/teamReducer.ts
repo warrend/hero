@@ -3,8 +3,8 @@ import { useReducer } from 'react';
 type TeamHero = { name: string; id: string };
 
 export type State = {
-  team1: TeamHero[];
-  team2: TeamHero[];
+  teamA: TeamHero[];
+  teamB: TeamHero[];
 };
 
 export const TeamActionTypes = {
@@ -15,24 +15,24 @@ export const TeamActionTypes = {
 export type Action =
   | {
       type: typeof TeamActionTypes.ADD;
-      payload: { teamId: 'team1' | 'team2'; hero: TeamHero };
+      payload: { teamId: 'teamA' | 'teamB'; hero: TeamHero };
     }
   | {
       type: typeof TeamActionTypes.REMOVE;
-      payload: { teamId: 'team1' | 'team2'; hero: TeamHero };
+      payload: { teamId: 'teamA' | 'teamB'; hero: TeamHero };
     };
 
 export const initialState: State = {
-  team1: [],
-  team2: [],
+  teamA: [],
+  teamB: [],
 };
 
 function teamReducer(state: State, action: Action): State {
   const teamId = action.payload.teamId;
   const currentTeam = state[teamId];
   const heroAlreadyOnTeam =
-    state.team1.some((h) => h.id === action.payload.hero.id) ||
-    state.team2.some((h) => h.id === action.payload.hero.id);
+    state.teamA.some((h) => h.id === action.payload.hero.id) ||
+    state.teamB.some((h) => h.id === action.payload.hero.id);
 
   switch (action.type) {
     case TeamActionTypes.ADD:

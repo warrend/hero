@@ -13,8 +13,8 @@ export default function TeamSelect({
 }) {
   const { state, dispatch } = useTeams();
 
-  const team1Check = state.team1.some((h) => h.id === heroId);
-  const team2Check = state.team2.some((h) => h.id === heroId);
+  const team1Check = state.teamA.some((h) => h.id === heroId);
+  const team2Check = state.teamB.some((h) => h.id === heroId);
 
   return (
     <div>
@@ -22,25 +22,23 @@ export default function TeamSelect({
         onClick={() =>
           dispatch({
             type: TeamActionTypes.ADD,
-            payload: { teamId: 'team1', hero: { id: heroId, name: heroName } },
+            payload: { teamId: 'teamA', hero: { id: heroId, name: heroName } },
           })
         }
-        value="team1"
         disabled={team1Check}
       >
-        Team 1
+        Team A
       </button>
       <button
         onClick={() =>
           dispatch({
             type: TeamActionTypes.ADD,
-            payload: { teamId: 'team2', hero: { id: heroId, name: heroName } },
+            payload: { teamId: 'teamB', hero: { id: heroId, name: heroName } },
           })
         }
-        value="team2"
         disabled={team2Check}
       >
-        Team 2
+        Team B
       </button>
     </div>
   );

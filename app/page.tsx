@@ -13,11 +13,8 @@ export default async function Home(props: {
   const query = searchParams?.query || '';
 
   return (
-    <main className="grid grid-cols-[400px_1fr]">
-      <div>
-        <TeamList />
-      </div>
-      <div className="flex justify-center items-start pt-8">
+    <main className="">
+      <div className="mb-4">
         <SearchModal query={query}>
           <Suspense
             key={query}
@@ -26,6 +23,9 @@ export default async function Home(props: {
             <HeroList query={query} />
           </Suspense>
         </SearchModal>
+      </div>
+      <div>
+        <TeamList />
       </div>
     </main>
   );
