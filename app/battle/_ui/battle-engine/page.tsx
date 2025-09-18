@@ -53,21 +53,30 @@ export default function BattleEngine({
     };
   }
 
-  function generateTeamStats() {
-    const teamAStats = categories.map((stat) => {
-      let powerstat: number[] = [];
-      teamA.map((h) => {
-        powerstat.push(
-          Math.round(parseInt(h.powerstats[stat], 10) * 100) / 100
-        );
-      });
-
-      return {
-        stat: powerstat.reduce((sum, val) => sum + val, 0) / powerstat.length,
-      };
+  function averagePowerstat(team: Team, stat: keyof Stats) {
+    let powerstat: number[] = [];
+    team.map((h) => {
+      powerstat.push(parseInt(h.powerstats[stat], 10));
     });
 
-    console.log({ teamAStats });
+    return {
+      stat:
+        Math.round(
+          (powerstat.reduce((sum, val) => sum + val, 0) / powerstat.length) *
+            100
+        ) / 100,
+    };
+  }
+
+  function generateTeamStats() {
+    const teamAStats = categories.map((stat) => {
+      return averagePowerstat(teamA, stat);
+    });
+    const teamBStats = categories.map((stat) => {
+      return averagePowerstat(teamB, stat);
+    });
+
+    console.log({ teamAStats, teamBStats });
   }
 
   function matchStart(heroA: Hero, heroB: Hero) {
