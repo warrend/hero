@@ -12,6 +12,15 @@ type Hero = {
 
 type Team = Hero[];
 
+const categories: (keyof Stats)[] = [
+  'combat',
+  'durability',
+  'intelligence',
+  'speed',
+  'power',
+  'strength',
+];
+
 export default function BattleEngine({
   teamA,
   teamB,
@@ -20,6 +29,7 @@ export default function BattleEngine({
   teamB: Team;
 }) {
   function handleStartBattle() {
+    generateTeamStats();
     const allBattleResults = [];
     let teamAScore = 0;
     let teamBScore = 0;
@@ -43,16 +53,24 @@ export default function BattleEngine({
     };
   }
 
-  function matchStart(heroA: Hero, heroB: Hero) {
-    const categories: (keyof Stats)[] = [
-      'combat',
-      'durability',
-      'intelligence',
-      'speed',
-      'power',
-      'strength',
-    ];
+  function generateTeamStats() {
+    const teamAStats = categories.map((stat) => {
+      let powerstat: number[] = [];
+      teamA.map((h) => {
+        powerstat.push(
+          Math.round(parseInt(h.powerstats[stat], 10) * 100) / 100
+        );
+      });
 
+      return {
+        stat: powerstat.reduce((sum, val) => sum + val, 0) / powerstat.length,
+      };
+    });
+
+    console.log({ teamAStats });
+  }
+
+  function matchStart(heroA: Hero, heroB: Hero) {
     let heroAScore = 0;
     let heroBScore = 0;
 
