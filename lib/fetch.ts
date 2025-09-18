@@ -35,3 +35,9 @@ export async function searchSuperhero(
 export async function getHeroById(id: string): Promise<HeroByIdResponse> {
   return await get<HeroByIdResponse>(`/${id}`);
 }
+
+export async function getHeroesByIds(
+  ids: number[]
+): Promise<HeroByIdResponse[]> {
+  return Promise.all(ids.map((id) => getHeroById(String(id))));
+}

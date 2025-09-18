@@ -48,3 +48,12 @@ export type Hero = {
     url: string;
   };
 };
+
+export type Stats = {
+  combat: string;
+  durability: string;
+  intelligence: string;
+  power: string;
+  speed: string;
+  strength: string;
+};

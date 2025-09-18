@@ -4,13 +4,15 @@ import { Suspense } from 'react';
 import TeamList from './_ui/team-list';
 import SearchModal from './_ui/search-modal';
 
-export default async function Home(props: {
+export default async function Home({
+  searchParams,
+}: {
   searchParams?: Promise<{
     query?: string;
   }>;
 }) {
-  const searchParams = await props.searchParams;
-  const query = searchParams?.query || '';
+  const resolvedSearchParams = await searchParams;
+  const query = resolvedSearchParams?.query || '';
 
   return (
     <main className="">

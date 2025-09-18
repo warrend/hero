@@ -13,33 +13,47 @@ export default function TeamSelect({
 }) {
   const { state, dispatch } = useTeams();
 
-  const team1Check = state.teamA.some((h) => h.id === heroId);
-  const team2Check = state.teamB.some((h) => h.id === heroId);
+  const alreadyOnATeam =
+    state.teamA.some((h) => h.id === heroId) ||
+    state.teamB.some((h) => h.id === heroId);
+
+  const teamConfig = [
+    {
+      teamId: 'teamA' as const,
+      teamCheck: state.teamA.some((h) => h.id === heroId),
+      label: 'Team A',
+    },
+    {
+      teamId: 'teamB' as const,
+      teamCheck: state.teamB.some((h) => h.id === heroId),
+      label: 'Team B',
+    },
+  ];
 
   return (
-    <div>
-      <button
-        onClick={() =>
-          dispatch({
-            type: TeamActionTypes.ADD,
-            payload: { teamId: 'teamA', hero: { id: heroId, name: heroName } },
-          })
-        }
-        disabled={team1Check}
-      >
-        Team A
-      </button>
-      <button
-        onClick={() =>
-          dispatch({
-            type: TeamActionTypes.ADD,
-            payload: { teamId: 'teamB', hero: { id: heroId, name: heroName } },
-          })
-        }
-        disabled={team2Check}
-      >
-        Team B
-      </button>
+    <div className="flex items-center gap-2">
+      <span className="text-sm text-slate-600">Add to: </span>
+      {teamConfig.map(({ teamId, teamCheck, label }) => (
+        <button
+          className={`px-3 py-1 text-sm rounded-full transition-all duration-200 ease-in-out disabled:cursor-not-allowed ${
+            teamCheck
+              ? 'bg-green-100 text-green-700'
+              : alreadyOnATeam
+              ? 'bg-gray-300 text-gray-500'
+              : 'bg-slate-200 hover:bg-slate-300 text-slate-700'
+          }`}
+          key={teamId}
+          onClick={() =>
+            dispatch({
+              type: TeamActionTypes.ADD,
+              payload: { teamId, hero: { id: heroId, name: heroName } },
+            })
+          }
+          disabled={alreadyOnATeam}
+        >
+          {teamCheck ? `On ${label}` : label}
+        </button>
+      ))}
     </div>
   );
 }

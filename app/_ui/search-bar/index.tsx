@@ -35,7 +35,7 @@ export default function Search() {
         Search
       </label>
       <input
-        className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+        className="peer block w-full rounded-sm border-2 border-gray-300 border-w-2 py-2 pl-4 text-sm placeholder:text-gray-500"
         placeholder="Search superheroes..."
         onChange={(e) => {
           handleSearchWithDebounce(e.target.value);
