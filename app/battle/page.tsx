@@ -2,26 +2,10 @@ import { getHeroesByIds } from '@/lib/fetch';
 import { HeroByIdResponse, Stats } from '@/lib/types';
 import React from 'react';
 import BattleEngine from './_ui/battle-engine/page';
-import Image from 'next/image';
 import PowerStats from '@/components/power-stats';
-
-type Hero = {
-  id: string;
-  name: string;
-  image: { url: string };
-  powerstats: Stats;
-};
-
-type Team = Hero[];
-
-const categories: (keyof Stats)[] = [
-  'combat',
-  'durability',
-  'intelligence',
-  'speed',
-  'power',
-  'strength',
-];
+import { Team } from '@/lib/types';
+import { ImageFallback } from '@/components/image-fallback';
+import { categories } from '@/constants';
 
 function TeamSheet({
   team,
@@ -39,12 +23,13 @@ function TeamSheet({
       {team.map(({ id, name, image }) => (
         <div key={id}>
           <div className="flex items-center font-semibold border-b border-gray-300 pb-2 mb-2">
-            <Image
-              className="mr-2"
+            <ImageFallback
+              className="mr-2 rounded-full object-cover w-8 h-8 flex-shrink-0"
               src={image.url}
-              width={25}
-              height={25}
+              width={35}
+              height={35}
               alt={`picture of ${name}`}
+              name={name}
             />
             {name}
           </div>

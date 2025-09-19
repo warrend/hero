@@ -57,3 +57,29 @@ export type Stats = {
   speed: string;
   strength: string;
 };
+
+export type TeamHero = {
+  id: string;
+  name: string;
+  image: { url: string };
+  powerstats: Stats;
+};
+
+export type Team = TeamHero[];
+
+type MatchResult = {
+  heroA: string;
+  heroB: string;
+  score: { [heroName: string]: number };
+  winner: string | 'draw';
+  teamWinner: 'teamA' | 'teamB' | 'draw';
+  result: { [stat: string]: { [heroName: string]: string } }[];
+};
+
+export type BattleResults = {
+  allBattleResults: MatchResult[];
+  score: {
+    teamAScore: number;
+    teamBScore: number;
+  };
+};

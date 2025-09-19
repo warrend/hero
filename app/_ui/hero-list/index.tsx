@@ -4,11 +4,10 @@ import React, { Suspense } from 'react';
 import TeamSelect from '../team-select';
 import Image from 'next/image';
 import PowerStats from '@/components/power-stats';
+import { ImageFallback } from '@/components/image-fallback';
 
 export default async function HeroList({ query }: { query: string }) {
   const data = await searchSuperhero(query);
-
-  console.log({ data });
 
   return (
     <Suspense
@@ -19,11 +18,12 @@ export default async function HeroList({ query }: { query: string }) {
         {data?.results?.map((hero) => (
           <div key={hero.id} className="mb-6 bg-slate-50 p-4 rounded-sm">
             <div className="grid grid-cols-[75_1fr_1fr] gap-4 mb-6">
-              <Image
+              <ImageFallback
                 src={hero.image.url}
                 width={75}
                 height={75}
                 alt={`picture of ${hero.name}`}
+                name={hero.name}
               />
               <div>
                 <Link href={`/superheroes/${hero.id}`}>

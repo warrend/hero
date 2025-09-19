@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect, ReactNode } from 'react';
 import SearchBar from '../search-bar';
-import HeroList from '../hero-list';
 
 export default function SearchModal({
   query,
@@ -16,7 +15,6 @@ export default function SearchModal({
 
   useEffect(() => {
     const dialog = dialogRef.current;
-    console.log({ dialog });
     if (open && dialog) {
       dialog.showModal();
     } else if (dialog) {
