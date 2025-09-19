@@ -13,10 +13,18 @@ const statMap: Record<keyof Stats, string> = {
 
 const statObjEntries = typedEntries(statMap);
 
-export default function PowerStats({ stats }: { stats: Stats }) {
+export default function PowerStats({
+  stats,
+  title,
+}: {
+  stats: Stats;
+  title?: string;
+}) {
   return (
-    <div className="bg-slate-100 border border-slate-200 rounded-sm p-4 max-w-xs">
-      <h3 className="font-semibold text-slate-700 mb-3">Power Stats</h3>
+    <div className="bg-slate-100 border border-slate-200 rounded-sm p-2 max-w-xs">
+      <h3 className="font-semibold text-slate-700 mb-3">
+        {title ? title : 'Power Stats'}
+      </h3>
       <div className="grid grid-cols-2 gap-y-2 gap-x-4">
         {statObjEntries.map(([statKey, statLabel]) => {
           return (

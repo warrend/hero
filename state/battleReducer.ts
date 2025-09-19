@@ -8,77 +8,43 @@ type TeamHero = {
   powerstats: Stats;
 };
 
-type Match = {
-  heroA: TeamHero;
-  heroB: TeamHero;
-  winner: 'a' | 'b' | 'draw';
-  scoreA: number;
-  scoreB: number;
-};
+type Team = TeamHero[];
 
 export type State = {
-  teamA: TeamHero[];
-  teamB: TeamHero[];
-  matches: Match[];
-  winner: 'a' | 'b' | 'draw' | null;
+  teamStats: {
+    teamA: Stats | null;
+    teamB: Stats | null;
+  };
 };
 
-export const TeamActionTypes = {
-  ADD: 'ADD',
-  REMOVE: 'REMOVE',
+export const BattleActionTypes = {
+  SET_TEAM_STATS: 'SET_TEAM_STATS',
 } as const;
 
-export type Action =
-  | {
-      type: typeof TeamActionTypes.ADD;
-      payload: { teamId: 'teamA' | 'teamB'; hero: TeamHero };
-    }
-  | {
-      type: typeof TeamActionTypes.REMOVE;
-      payload: { teamId: 'teamA' | 'teamB'; hero: TeamHero };
-    };
-
-export const initialState: State = {
-  teamA: [],
-  teamB: [],
+export type Action = {
+  type: typeof BattleActionTypes.SET_TEAM_STATS;
+  payload: { teamA: Stats; teamB: Stats };
 };
 
-function teamReducer(state: State, action: Action): State {
-  const teamId = action.payload.teamId;
-  const currentTeam = state[teamId];
-  const heroAlreadyOnTeam =
-    state.teamA.some((h) => h.id === action.payload.hero.id) ||
-    state.teamB.some((h) => h.id === action.payload.hero.id);
+export const initialState: State = {
+  teamStats: {
+    teamA: null,
+    teamB: null,
+  },
+};
 
+function battleReducer(state: State, action: Action): State {
   switch (action.type) {
-    case TeamActionTypes.ADD:
-      if (heroAlreadyOnTeam || currentTeam.length >= 3) {
-        return state;
-      }
-
+    case BattleActionTypes.SET_TEAM_STATS:
       return {
         ...state,
-        [action.payload.teamId]: [
-          ...state[action.payload.teamId],
-          action.payload.hero,
-        ],
-      };
-    case TeamActionTypes.REMOVE:
-      if (!heroAlreadyOnTeam) {
-        return state;
-      }
-
-      return {
-        ...state,
-        [action.payload.teamId]: state[action.payload.teamId].filter(
-          (hero) => hero.id !== action.payload.hero.id
-        ),
+        teamStats: action.payload,
       };
     default:
       return state;
   }
 }
 
-export function useTeamReducer() {
-  return useReducer(teamReducer, initialState);
+export function useBattleReducer() {
+  return useReducer(battleReducer, initialState);
 }

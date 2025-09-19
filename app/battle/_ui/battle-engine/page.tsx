@@ -1,6 +1,8 @@
 'use client';
 
+import PowerStats from '@/components/power-stats';
 import { Stats } from '@/lib/types';
+import { BattleActionTypes, useBattleReducer } from '@/state/battleReducer';
 import React from 'react';
 
 type Hero = {
@@ -28,8 +30,11 @@ export default function BattleEngine({
   teamA: Team;
   teamB: Team;
 }) {
+  const [state, dispatch] = useBattleReducer();
+
+  console.log({ state });
+
   function handleStartBattle() {
-    generateTeamStats();
     const allBattleResults = [];
     let teamAScore = 0;
     let teamBScore = 0;
@@ -53,31 +58,38 @@ export default function BattleEngine({
     };
   }
 
-  function averagePowerstat(team: Team, stat: keyof Stats) {
-    let powerstat: number[] = [];
-    team.map((h) => {
-      powerstat.push(parseInt(h.powerstats[stat], 10));
-    });
+  // function averagePowerstat(team: Team, stat: keyof Stats) {
+  //   let powerstat: number[] = [];
+  //   team.map((h) => {
+  //     powerstat.push(parseInt(h.powerstats[stat], 10));
+  //   });
 
-    return {
-      stat:
-        Math.round(
-          (powerstat.reduce((sum, val) => sum + val, 0) / powerstat.length) *
-            100
-        ) / 100,
-    };
-  }
+  //   return (
+  //     Math.round(
+  //       (powerstat.reduce((sum, val) => sum + val, 0) / powerstat.length) * 100
+  //     ) / 100
+  //   );
+  // }
 
-  function generateTeamStats() {
-    const teamAStats = categories.map((stat) => {
-      return averagePowerstat(teamA, stat);
-    });
-    const teamBStats = categories.map((stat) => {
-      return averagePowerstat(teamB, stat);
-    });
+  // function generateTeamStats() {
+  //   const teamAStats: Record<keyof Stats, string> = {} as Record<
+  //     keyof Stats,
+  //     string
+  //   >;
+  //   const teamBStats: Record<keyof Stats, string> = {} as Record<
+  //     keyof Stats,
+  //     string
+  //   >;
+  //   categories.forEach((stat) => {
+  //     teamAStats[stat] = String(averagePowerstat(teamA, stat));
+  //     teamBStats[stat] = String(averagePowerstat(teamB, stat));
+  //   });
 
-    console.log({ teamAStats, teamBStats });
-  }
+  //   dispatch({
+  //     type: BattleActionTypes.SET_TEAM_STATS,
+  //     payload: { teamA: teamAStats, teamB: teamBStats },
+  //   });
+  // }
 
   function matchStart(heroA: Hero, heroB: Hero) {
     let heroAScore = 0;

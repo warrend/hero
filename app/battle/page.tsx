@@ -1,12 +1,40 @@
 import { getHeroesByIds } from '@/lib/fetch';
-import { HeroByIdResponse } from '@/lib/types';
+import { HeroByIdResponse, Stats } from '@/lib/types';
 import React from 'react';
 import BattleEngine from './_ui/battle-engine/page';
 import Image from 'next/image';
+import PowerStats from '@/components/power-stats';
 
-function TeamSheet({ team }: { team: HeroByIdResponse[] }) {
+type Hero = {
+  id: string;
+  name: string;
+  image: { url: string };
+  powerstats: Stats;
+};
+
+type Team = Hero[];
+
+const categories: (keyof Stats)[] = [
+  'combat',
+  'durability',
+  'intelligence',
+  'speed',
+  'power',
+  'strength',
+];
+
+function TeamSheet({
+  team,
+  stats,
+}: {
+  team: HeroByIdResponse[];
+  stats: Stats;
+}) {
   return (
     <div className="space-y-2">
+      <div>
+        <PowerStats stats={stats} />
+      </div>
       {team.map(({ id, name, image }) => (
         <div key={id} className="p-3 bg-blue-100 rounded">
           <div className="flex">
@@ -53,6 +81,36 @@ export default async function Battle({
       getHeroesByIds(teamBIds.map(Number)),
     ]);
 
+  function averagePowerstat(team: Team, stat: keyof Stats) {
+    let powerstat: number[] = [];
+    team.map((h) => {
+      powerstat.push(parseInt(h.powerstats[stat], 10));
+    });
+
+    return (
+      Math.round(
+        (powerstat.reduce((sum, val) => sum + val, 0) / powerstat.length) * 100
+      ) / 100
+    );
+  }
+
+  function generateTeamStats(team: Team): Record<keyof Stats, string> {
+    const teamStats: Record<keyof Stats, string> = {} as Record<
+      keyof Stats,
+      string
+    >;
+
+    categories.forEach((stat) => {
+      const ave = averagePowerstat(team, stat);
+      teamStats[stat] = String(ave);
+    });
+
+    return teamStats;
+  }
+
+  const teamAStats = generateTeamStats(teamA);
+  const teamBStats = generateTeamStats(teamB);
+
   return (
     <div className="p-8">
       <h1 className="text-2xl font-bold mb-6">Battle Arena</h1>
@@ -60,12 +118,12 @@ export default async function Battle({
       <div className="grid grid-cols-2 gap-8">
         <div>
           <h2 className="text-xl font-semibold mb-4">Team A</h2>
-          <TeamSheet team={teamA} />
+          <TeamSheet team={teamA} stats={teamAStats} />
         </div>
 
         <div>
           <h2 className="text-xl font-semibold mb-4">Team B</h2>
-          <TeamSheet team={teamB} />
+          <TeamSheet team={teamB} stats={teamBStats} />
         </div>
       </div>
     </div>
