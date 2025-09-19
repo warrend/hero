@@ -23,9 +23,14 @@ export default function TeamList() {
     name: string;
     teamId: TeamId;
   }) => (
-    <div key={id} className="flex">
-      <span className="mr-2">{id}</span>
-      <div className="mr-4">{name}</div>
+    <div
+      key={id}
+      className="flex items-center justify-between border-b border-gray-200 pb-2 mb-2"
+    >
+      <div className="flex items-center">
+        <span className="mr-3 text-sm text-slate-600 font-medium">#{id}</span>
+        <div className="font-semibold">{name}</div>
+      </div>
       <button
         onClick={() =>
           dispatch({
@@ -36,6 +41,7 @@ export default function TeamList() {
             },
           })
         }
+        className="text-red-500 hover:text-red-700 hover:bg-red-50 px-2 py-1 rounded text-sm font-medium transition-colors"
       >
         Remove
       </button>
@@ -57,26 +63,33 @@ export default function TeamList() {
         onClick={handleStartBattle}
         disabled={!gameReady}
         type="button"
-        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 disabled:bg-slate-400"
+        className="bg-slate-500 text-white font-medium rounded-sm text-sm px-3 py-1.5 disabled:bg-gray-400 disabled:cursor-not-allowed mb-6"
       >
         Start Battle!
       </button>
       <section>
-        <div className="teams">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {typedEntries(state).map(([teamId, heroes]) => (
-            <div key={teamId}>
-              <div className="font-bold mb-2">{Teams[teamId]}</div>
+            <div key={teamId} className="space-y-2 bg-slate-50 p-5 rounded-sm">
+              <div className="text-xl font-semibold mb-4">{Teams[teamId]}</div>
+              <div className="text-sm mb-4 text-slate-500 font-medium">
+                Players
+              </div>
               {heroes.length ? (
-                heroes.map((hero) => (
-                  <Team
-                    key={hero.id}
-                    id={hero.id}
-                    name={hero.name}
-                    teamId={teamId}
-                  />
-                ))
+                <div className="space-y-2">
+                  {heroes.map((hero) => (
+                    <Team
+                      key={hero.id}
+                      id={hero.id}
+                      name={hero.name}
+                      teamId={teamId}
+                    />
+                  ))}
+                </div>
               ) : (
-                <div>No team members yet.</div>
+                <div className="text-slate-400 italic">
+                  No team members yet.
+                </div>
               )}
             </div>
           ))}

@@ -73,7 +73,24 @@ type MatchResult = {
   score: { [heroName: string]: number };
   winner: string | 'draw';
   teamWinner: 'teamA' | 'teamB' | 'draw';
-  result: { [stat: string]: { [heroName: string]: string } }[];
+  result: {
+    [stat: string]: {
+      [heroName: string]: number;
+    } & {
+      weight?: number;
+      margin?: number;
+      points?: number;
+    };
+  }[];
+  totalPoints?: { heroA: number; heroB: number };
+};
+
+export type TeamStats = {
+  [K in keyof Stats]: {
+    total: number;
+    average: number;
+    max: number;
+  };
 };
 
 export type BattleResults = {
@@ -81,5 +98,9 @@ export type BattleResults = {
   score: {
     teamAScore: number;
     teamBScore: number;
+  };
+  teamStats?: {
+    teamA: TeamStats;
+    teamB: TeamStats;
   };
 };

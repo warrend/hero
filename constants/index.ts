@@ -15,3 +15,12 @@ export const categories: (keyof Stats)[] = [
   'power',
   'strength',
 ];
+
+export const statWeights: Record<keyof Stats, number> = {
+  intelligence: 2.5,
+  speed: 2.5,
+  combat: 2.0,
+  power: 1.0,
+  strength: 1.0,
+  durability: 1.5,
+};

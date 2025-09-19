@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Stats, TeamHero, Team } from '@/lib/types';
-import { categories } from '@/constants';
+import { categories, statWeights } from '@/constants';
 import { useState, useRef, useEffect, ReactNode } from 'react';
 import { BattleActionTypes, useBattleReducer } from '@/state/battleReducer';
 import BattleResults from '../battle-results/page';
@@ -28,10 +28,30 @@ export default function BattleEngine({
     }
   }, [open]);
 
-  console.log({ state });
+  function calculateTeamStats(team: Team) {
+    const teamStats: Record<
+      keyof Stats,
+      { total: number; average: number; max: number }
+    > = {} as any;
+
+    categories.forEach((stat) => {
+      const values = team.map((hero) => parseInt(hero.powerstats[stat]) || 0);
+      teamStats[stat] = {
+        total: values.reduce((sum, val) => sum + val, 0),
+        average: values.reduce((sum, val) => sum + val, 0) / values.length,
+        max: Math.max(...values),
+      };
+    });
+
+    return teamStats;
+  }
 
   function handleStartBattle() {
     setOpen(true);
+
+    const teamAStats = calculateTeamStats(teamA);
+    const teamBStats = calculateTeamStats(teamB);
+
     const allBattleResults = [];
     let teamAScore = 0;
     let teamBScore = 0;
@@ -52,6 +72,7 @@ export default function BattleEngine({
     const battleResults = {
       allBattleResults,
       score: { teamAScore, teamBScore },
+      teamStats: { teamA: teamAStats, teamB: teamBStats },
     };
 
     dispatch({
@@ -65,16 +86,20 @@ export default function BattleEngine({
     let heroBScore = 0;
 
     const result = categories.map((stat) => {
-      const powerstatA = heroA.powerstats[stat];
-      const powerstatB = heroB.powerstats[stat];
+      const powerstatA = parseInt(heroA.powerstats[stat]) || 0;
+      const powerstatB = parseInt(heroB.powerstats[stat]) || 0;
 
-      if (parseInt(powerstatA) > parseInt(powerstatB)) {
-        heroAScore++;
-      } else if (parseInt(powerstatA) < parseInt(powerstatB)) {
-        heroBScore++;
-      }
+      const weight = statWeights[stat] | 1;
 
-      return { [stat]: { [heroA.name]: powerstatA, [heroB.name]: powerstatB } };
+      heroAScore += powerstatA * weight;
+      heroBScore += powerstatB * weight;
+
+      return {
+        [stat]: {
+          [heroA.name]: powerstatA,
+          [heroB.name]: powerstatB,
+        },
+      };
     });
 
     return {
@@ -94,6 +119,7 @@ export default function BattleEngine({
           ? ('teamA' as const)
           : ('teamB' as const),
       result,
+      totalPoints: { heroA: heroAScore, heroB: heroBScore },
     };
   }
   return (
@@ -107,7 +133,6 @@ export default function BattleEngine({
             ? 'Start Battle'
             : 'View Battle Results'}
         </button>
-
         <dialog
           ref={dialogRef}
           className="backdrop:bg-black/60 p-0 rounded-sm shadow-xl w-[95vw] max-w-5xl sm:w-full min-h-[75vh] max-h-[75vh] sm:min-h-[60vh] sm:max-h-[80vh] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"

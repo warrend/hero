@@ -15,8 +15,11 @@ export default async function Home({
   const query = resolvedSearchParams?.query || '';
 
   return (
-    <main className="">
-      <div className="mb-4">
+    <main>
+      <div className="mb-4 flex justify-between align-middle">
+        <div className="font-black-500 font-bold text-lg">
+          Select Your Teams
+        </div>
         <SearchModal query={query}>
           <Suspense
             key={query}

@@ -1,29 +1,30 @@
 'use client';
 
-import { useState, useRef, useEffect, ReactNode } from 'react';
-import SearchBar from '../search-bar';
+import { useBattleReducer } from '@/state/battleReducer';
+import React, { useEffect, useRef, useState } from 'react';
 
-export default function SearchModal({
-  query,
-  children,
-}: {
-  query: string;
-  children: ReactNode;
-}) {
+export default function Weights() {
+  const [state, dispatch] = useBattleReducer();
   const [open, setOpen] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
     const dialog = dialogRef.current;
+    console.log({ dialog });
     if (open && dialog) {
       dialog.showModal();
     } else if (dialog) {
       dialog.close();
     }
   }, [open]);
-
   return (
-    <>
+    <div>
+      <button
+        className="mb-6 bg-blue-100 border border-blue-700 text-black font-medium py-1 px-3 rounded text-sm hover:bg-blue-200 transition-colors"
+        onClick={() => setOpen(true)}
+      >
+        Add Weights
+      </button>
       <dialog
         ref={dialogRef}
         className="backdrop:bg-black/60 p-0 rounded-sm shadow-xl w-[95vw] max-w-5xl sm:w-full min-h-[75vh] max-h-[75vh] sm:min-h-[60vh] sm:max-h-[80vh] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
@@ -40,34 +41,12 @@ export default function SearchModal({
                 Exit
               </button>
             </div>
-            <SearchBar />
           </div>
-
-          <div className="flex-1 overflow-y-auto p-4 sm:p-6 pt-3 sm:pt-4">
-            {children}
+          <div className="p-4">
+            <form></form>
           </div>
         </div>
       </dialog>
-      <button
-        className="bg-slate-100 hover:bg-slate-700 text-slate-600 w-10 h-10 rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-200"
-        onClick={() => setOpen(true)}
-        title="Search Heroes"
-      >
-        <svg
-          className="w-5 h-5"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-          />
-        </svg>
-      </button>
-    </>
+    </div>
   );
 }
