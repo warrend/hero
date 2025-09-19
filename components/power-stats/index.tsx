@@ -21,7 +21,7 @@ export default function PowerStats({
   title?: string;
 }) {
   return (
-    <div className="bg-slate-100 border border-slate-200 rounded-sm p-2 max-w-xs">
+    <div className="bg-slate-100 border border-slate-200 rounded-sm p-2 max-w">
       <h3 className="font-semibold text-slate-700 mb-3">
         {title ? title : 'Power Stats'}
       </h3>

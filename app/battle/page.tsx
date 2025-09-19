@@ -31,18 +31,19 @@ function TeamSheet({
   stats: Stats;
 }) {
   return (
-    <div className="space-y-2">
-      <div>
-        <PowerStats stats={stats} />
+    <div className="space-y-2 bg-slate-50 p-5 rounded-sm">
+      <div className="mb-6">
+        <PowerStats stats={stats} title="Team Stats" />
       </div>
+      <div className="text-sm mb-4 text-slate-500 font-medium">Players</div>
       {team.map(({ id, name, image }) => (
-        <div key={id} className="p-3 bg-blue-100 rounded">
-          <div className="flex">
+        <div key={id}>
+          <div className="flex items-center font-semibold border-b border-gray-300 pb-2 mb-2">
             <Image
               className="mr-2"
               src={image.url}
-              width={35}
-              height={55}
+              width={25}
+              height={25}
               alt={`picture of ${name}`}
             />
             {name}
@@ -115,7 +116,7 @@ export default async function Battle({
     <div className="p-8">
       <h1 className="text-2xl font-bold mb-6">Battle Arena</h1>
       <BattleEngine teamA={teamA} teamB={teamB} />
-      <div className="grid grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
           <h2 className="text-xl font-semibold mb-4">Team A</h2>
           <TeamSheet team={teamA} stats={teamAStats} />
