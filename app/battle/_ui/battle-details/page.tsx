@@ -35,7 +35,7 @@ export default function BattleDetails({ results }: { results: BattleResults }) {
       </div>
 
       {teamStats && (
-        <div className="bg-white border border-gray-200 rounded-lg p-6">
+        <div className="bg-white border border-gray-200 rounded-sm p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <h4 className="text-sm font-medium mb-3 text-slate-400">
@@ -53,7 +53,7 @@ export default function BattleDetails({ results }: { results: BattleResults }) {
         </div>
       )}
 
-      <div className="bg-white border border-gray-200 rounded-lg p-6">
+      <div className="bg-white border border-gray-200 rounded-sm p-6">
         <h3 className="text-sm text-slate-400 font-semibold mb-4">Battles</h3>
         <div className="space-y-3">
           {allBattleResults.map((match, index) => (
@@ -61,7 +61,7 @@ export default function BattleDetails({ results }: { results: BattleResults }) {
               key={index}
               className="bg-gray-50 border border-gray-200 rounded-sm p-2"
             >
-              <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3 flex-1 justify-end">
                   <span
                     className={`font-semibold text-lg ${
