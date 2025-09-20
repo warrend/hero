@@ -3,7 +3,7 @@
 import React from 'react';
 import { Stats, TeamHero, Team } from '@/lib/types';
 import { categories, statWeights } from '@/constants';
-import { useState, useRef, useEffect, ReactNode } from 'react';
+import { useState } from 'react';
 import { BattleActionTypes, useBattleReducer } from '@/state/battleReducer';
 import BattleResults from '../battle-results/page';
 import Modal from '@/components/modal';
@@ -129,22 +129,9 @@ export default function BattleEngine({
           onClose={() => setOpen(false)}
         >
           <div className="bg-white h-full flex flex-col">
-            <>
-              <div className="sticky top-0 bg-white z-20 p-4 sm:p-6 pb-3 sm:pb-4 border-b border-gray-200">
-                <div className="flex justify-between items-center mb-3 sm:mb-4">
-                  <div></div>
-                  <button
-                    onClick={() => setOpen(false)}
-                    className="text-sm text-slate-400 font-medium"
-                  >
-                    Exit
-                  </button>
-                </div>
-              </div>
-              <div className="p-4">
-                <BattleResults results={state.battleResults} />
-              </div>
-            </>
+            <div className="p-4">
+              <BattleResults results={state.battleResults} />
+            </div>
           </div>
         </Modal>
       </>

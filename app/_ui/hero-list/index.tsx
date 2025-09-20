@@ -9,10 +9,18 @@ import { ImageFallback } from '@/components/image-fallback';
 export default async function HeroList({ query }: { query: string }) {
   const data = await searchSuperhero(query);
 
+  if (
+    data.response === 'success' &&
+    !data.results.length &&
+    data['results-for'] !== ''
+  ) {
+    return <div className="text-center text-slate-400">No results.</div>;
+  }
+
   return (
     <Suspense
       key={query}
-      fallback={<div className="text-center">Loading...</div>}
+      fallback={<div className="text-center text-slate-400">Loading...</div>}
     >
       <div>
         {data?.results?.map((hero) => (

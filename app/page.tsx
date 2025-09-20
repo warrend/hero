@@ -16,7 +16,7 @@ export default async function Home({
 
   return (
     <main>
-      <div className="mb-4 flex justify-between align-middle">
+      <div className="mb-4 flex justify-between align-middle border-b-2 border-slate-200 pb-4">
         <div className="font-black-500 font-bold text-lg">
           Select Your Teams
         </div>

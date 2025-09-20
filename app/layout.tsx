@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className}`} suppressHydrationWarning={true}>
         <TeamProvider>
-          <div className="p-4 max-w-7xl mx-auto">{children}</div>
+          <div className="p-4 max-w-7xl mx-auto ">{children}</div>
         </TeamProvider>
       </body>
     </html>
