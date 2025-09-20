@@ -1,3 +1,4 @@
+import Stats from '@/components/stats';
 import { type BattleResults } from '@/lib/types';
 import React, { useState, useEffect } from 'react';
 
@@ -81,12 +82,12 @@ export default function BattleResults({
 
   return (
     <div className="space-y-6">
-      <div className="bg-gradient-to-r from-gray-100 to-gray-200 rounded-lg p-6">
+      <div className="bg-slate-100 rounded-sm p-4">
         <h2 className="text-xl font-bold text-center mb-4">
           {score.teamAScore > score.teamBScore ? (
-            <div className="text-3xl font-bold text-green-800">Team A Wins</div>
+            <div className="text-2xl font-bold text-green-800">Team A Wins</div>
           ) : score.teamBScore > score.teamAScore ? (
-            <div className="text-3xl font-bold text-blue-800">Team B Wins</div>
+            <div className="text-2xl font-bold text-blue-800">Team B Wins</div>
           ) : (
             <div className="text-3xl font-bold text-gray-600">🤝 Draw</div>
           )}
@@ -96,91 +97,44 @@ export default function BattleResults({
             <div className="text-4xl font-bold text-green-600">
               {score.teamAScore}
             </div>
-            <div className="text-sm text-gray-600 font-medium">
-              Team A Victories
-            </div>
+            <div className="text-sm text-gray-600 font-medium">Wins</div>
           </div>
-          <div className="text-3xl font-bold text-gray-400">VS</div>
+          <div className="text-md font-bold text-gray-400">VS</div>
           <div className="text-center">
             <div className="text-4xl font-bold text-blue-600">
               {score.teamBScore}
             </div>
-            <div className="text-sm text-gray-600 font-medium">
-              Team B Victories
-            </div>
+            <div className="text-sm text-gray-600 font-medium">Wins</div>
           </div>
         </div>
       </div>
 
       {teamStats && (
         <div className="bg-white border border-gray-200 rounded-lg p-6">
-          <h3 className="text-xl font-semibold mb-4 text-center">
-            Team Averages
-          </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h4 className="text-lg font-medium mb-3 text-slate-700">
+              <h4 className="text-sm font-medium mb-3 text-slate-400">
                 Team A Stats
               </h4>
-              <div className="space-y-2">
-                {Object.entries(teamStats.teamA).map(([stat, values]) => (
-                  <div
-                    key={stat}
-                    className="flex justify-between items-center py-1 border-b border-gray-100"
-                  >
-                    <span className="capitalize font-medium text-gray-700">
-                      {stat}:
-                    </span>
-                    <div className="text-sm text-gray-600">
-                      Avg:{' '}
-                      <span className="font-semibold">
-                        {values.average.toFixed(1)}
-                      </span>{' '}
-                      | Max: <span className="font-semibold">{values.max}</span>{' '}
-                      | Total:{' '}
-                      <span className="font-semibold">{values.total}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <Stats teamStats={teamStats.teamA} />
             </div>
             <div>
-              <h4 className="text-lg font-medium mb-3 text-slate-700">
+              <h4 className="text-sm font-medium mb-3 text-slate-400">
                 Team B Stats
               </h4>
-              <div className="space-y-2">
-                {Object.entries(teamStats.teamB).map(([stat, values]) => (
-                  <div
-                    key={stat}
-                    className="flex justify-between items-center py-1 border-b border-gray-100"
-                  >
-                    <span className="capitalize font-medium text-gray-700">
-                      {stat}:
-                    </span>
-                    <div className="text-sm text-gray-600">
-                      Avg:{' '}
-                      <span className="font-semibold">
-                        {values.average.toFixed(1)}
-                      </span>{' '}
-                      | Max: <span className="font-semibold">{values.max}</span>{' '}
-                      | Total:{' '}
-                      <span className="font-semibold">{values.total}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <Stats teamStats={teamStats.teamA} />
             </div>
           </div>
         </div>
       )}
 
       <div className="bg-white border border-gray-200 rounded-lg p-6">
-        <h3 className="text-lg font-semibold mb-4">Individual Battles</h3>
+        <h3 className="text-sm text-slate-400 font-semibold mb-4">Battles</h3>
         <div className="space-y-3">
           {allBattleResults.map((match, index) => (
             <div
               key={index}
-              className="bg-gray-50 border border-gray-200 rounded-lg p-4"
+              className="bg-gray-50 border border-gray-200 rounded-sm p-2"
             >
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-3 flex-1 justify-end">
@@ -194,7 +148,7 @@ export default function BattleResults({
                     {match.heroA}
                   </span>
                   <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold ${
+                    className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold ${
                       match.teamWinner === 'teamA'
                         ? 'bg-green-600'
                         : 'bg-gray-400'
@@ -206,7 +160,7 @@ export default function BattleResults({
 
                 <div className="flex items-center gap-2 mx-6">
                   <div
-                    className={`rounded px-3 py-2 text-lg font-bold min-w-[60px] text-center ${
+                    className={`rounded px-2 py-1 text-lg font-bold min-w-[60px] text-center ${
                       match.teamWinner === 'teamA'
                         ? 'bg-green-100 text-green-800'
                         : 'bg-gray-200 text-gray-600'
@@ -216,7 +170,7 @@ export default function BattleResults({
                   </div>
                   <span className="text-gray-400 font-bold">VS</span>
                   <div
-                    className={`rounded px-3 py-2 text-lg font-bold min-w-[60px] text-center ${
+                    className={`rounded px-2 py-1 text-lg font-bold min-w-[60px] text-center ${
                       match.teamWinner === 'teamB'
                         ? 'bg-blue-100 text-blue-800'
                         : 'bg-gray-200 text-gray-600'
@@ -228,7 +182,7 @@ export default function BattleResults({
 
                 <div className="flex items-center gap-3 flex-1">
                   <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold ${
+                    className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold ${
                       match.teamWinner === 'teamB'
                         ? 'bg-blue-600'
                         : 'bg-gray-400'

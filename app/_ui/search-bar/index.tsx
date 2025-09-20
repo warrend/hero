@@ -31,9 +31,7 @@ export default function Search() {
 
   return (
     <div className="relative flex flex-1 flex-shrink-0">
-      <label htmlFor="search" className="sr-only">
-        Search
-      </label>
+      <div className="sr-only">Search</div>
       <input
         className="peer block w-full rounded-sm border-2 border-gray-300 border-w-2 py-2 pl-4 text-sm placeholder:text-gray-500"
         placeholder="Search superheroes..."

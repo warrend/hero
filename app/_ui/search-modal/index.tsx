@@ -2,6 +2,8 @@
 
 import { useState, useRef, useEffect, ReactNode } from 'react';
 import SearchBar from '../search-bar';
+import SearchIcon from '@/components/search-icon';
+import Modal from '@/components/modal';
 
 export default function SearchModal({
   query,
@@ -11,21 +13,11 @@ export default function SearchModal({
   children: ReactNode;
 }) {
   const [open, setOpen] = useState(false);
-  const dialogRef = useRef<HTMLDialogElement>(null);
-
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (open && dialog) {
-      dialog.showModal();
-    } else if (dialog) {
-      dialog.close();
-    }
-  }, [open]);
 
   return (
     <>
-      <dialog
-        ref={dialogRef}
+      <Modal
+        open={open}
         className="backdrop:bg-black/60 p-0 rounded-sm shadow-xl w-[95vw] max-w-5xl sm:w-full min-h-[75vh] max-h-[75vh] sm:min-h-[60vh] sm:max-h-[80vh] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
         onClose={() => setOpen(false)}
       >
@@ -47,26 +39,13 @@ export default function SearchModal({
             {children}
           </div>
         </div>
-      </dialog>
+      </Modal>
       <button
-        className="bg-slate-100 hover:bg-slate-700 text-slate-600 w-10 h-10 rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-200"
+        className="bg-slate-100 hover:bg-slate-300 text-slate-600 w-10 h-10 rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-200"
         onClick={() => setOpen(true)}
         title="Search Heroes"
       >
-        <svg
-          className="w-5 h-5"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-          />
-        </svg>
+        <SearchIcon />
       </button>
     </>
   );

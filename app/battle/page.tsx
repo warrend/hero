@@ -7,7 +7,6 @@ import { Team } from '@/lib/types';
 import { ImageFallback } from '@/components/image-fallback';
 import { categories } from '@/constants';
 import Link from 'next/link';
-import Weights from './_ui/weights/page';
 
 function TeamSheet({
   team,
@@ -106,7 +105,6 @@ export default async function Battle({
       <h1 className="text-2xl font-bold mb-6">Battle Arena</h1>
       <div className="flex gap-2">
         <BattleEngine teamA={teamA} teamB={teamB} />
-        <Weights />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
