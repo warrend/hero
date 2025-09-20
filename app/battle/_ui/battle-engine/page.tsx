@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { BattleActionTypes, useBattleReducer } from '@/state/battleReducer';
 import BattleResults from '../battle-results/page';
 import Modal from '@/components/modal';
+import { fallbackModeToFallbackField } from 'next/dist/lib/fallback';
 
 export default function BattleEngine({
   teamA,
@@ -17,6 +18,7 @@ export default function BattleEngine({
 }) {
   const [state, dispatch] = useBattleReducer();
   const [open, setOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   function calculateTeamStats(team: Team) {
     const teamStats: Record<
@@ -112,16 +114,37 @@ export default function BattleEngine({
       totalPoints: { heroA: heroAScore, heroB: heroBScore },
     };
   }
+
+  function handleShare() {
+    const url = window.location.href;
+
+    navigator.clipboard
+      .writeText(url)
+      .then(() => {
+        setCopied(true);
+      })
+      .catch((error) => {
+        console.error('Unable to copy url. Please try again.');
+        setCopied(false);
+      });
+  }
+
   return (
     <div>
       <>
         <button
-          className="mb-6 bg-green-100 border border-green-700 text-black font-medium py-1 px-3 rounded text-sm hover:bg-green-200 transition-colors"
+          className="mr-2 mb-6 bg-green-100 border border-green-700 text-black font-medium py-1 px-3 rounded text-sm hover:bg-green-200 transition-colors"
           onClick={handleStartBattle}
         >
           {state.battleResults === null
             ? 'Start Battle'
             : 'View Battle Results'}
+        </button>
+        <button
+          className="mb-6 bg-blue-100 border border-blue-700 text-black font-medium py-1 px-3 rounded text-sm hover:bg-blue-200 transition-colors"
+          onClick={handleShare}
+        >
+          {copied ? 'Copied!' : 'Copy Battle Link'}
         </button>
         <Modal
           open={open}
