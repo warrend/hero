@@ -44,7 +44,7 @@ Run `pnpm dev` or `npm run dev` to start the project.
 └── teamReducer.ts
 ```
 
-## Reasoning
+## Details
 
 The search component captures the user's input and creates a query param. The server component uses the query param to search and display the hero list.
 
