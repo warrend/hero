@@ -39,7 +39,7 @@ Run `pnpm dev` or `npm run dev` to start the project.
 ├── types.ts
 └── team-provider.tsx
 
-/state                   // Application state management
+/state                   // State management
 ├── battleReducer.ts
 └── teamReducer.ts
 ```
