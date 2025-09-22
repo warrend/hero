@@ -21,12 +21,7 @@ export default async function Home({
           Select Your Teams
         </div>
         <SearchModal query={query}>
-          <Suspense
-            key={query}
-            fallback={<div className="text-center">Loading...</div>}
-          >
-            <HeroList query={query} />
-          </Suspense>
+          <HeroList query={query} />
         </SearchModal>
       </div>
       <div>
