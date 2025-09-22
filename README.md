@@ -54,7 +54,9 @@ When the battle starts, the teams play round robin. Each player match is added t
 
 The stats for the matches are shown as well as the individual match results.
 
-If I had more time, I'd focus on:
+Items to focus on during next iteration:
 
 - Building out more reusable components, like inputs, buttons, etc.
 - Add a UI to adjust weights.
+- Persisting previous teams
+- Adding some more animated/transitions to modals, pages, buttons, etc.
