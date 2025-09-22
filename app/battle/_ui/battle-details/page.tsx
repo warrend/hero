@@ -14,7 +14,7 @@ export default function BattleDetails({ results }: { results: BattleResults }) {
           ) : score.teamBScore > score.teamAScore ? (
             <div className="text-2xl font-bold text-blue-800">Team B Wins</div>
           ) : (
-            <div className="text-3xl font-bold text-gray-600">🤝 Draw</div>
+            <div className="text-3xl font-bold text-gray-600">Draw</div>
           )}
         </h2>
         <div className="flex justify-center items-center gap-8">

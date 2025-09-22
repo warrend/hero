@@ -5,6 +5,7 @@ import SearchBar from '../search-bar';
 import SearchIcon from '@/components/search-icon';
 import Modal from '@/components/modal';
 import Button from '@/components/button';
+import { State, useTeamReducer } from '@/state/teamReducer';
 
 export default function SearchModal({
   query,
