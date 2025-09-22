@@ -19,6 +19,8 @@ const BattleEngine = memo(function BattleEngine({
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
+  console.log({ state });
+
   const calculateTeamStats = useCallback((team: Team) => {
     const teamStats: Record<
       keyof Stats,
@@ -40,6 +42,16 @@ const BattleEngine = memo(function BattleEngine({
   const matchStart = useCallback((heroA: TeamHero, heroB: TeamHero) => {
     let heroAScore = 0;
     let heroBScore = 0;
+    let heroAName;
+    let heroBName;
+
+    if (heroA.name === heroB.name) {
+      heroAName = `${heroA.name}A`;
+      heroBName = `${heroB.name}B`;
+    } else {
+      heroAName = heroA.name;
+      heroBName = heroB.name;
+    }
 
     const result = categories.map((stat) => {
       const powerstatA = parseInt(heroA.powerstats[stat]) || 0;
@@ -52,8 +64,8 @@ const BattleEngine = memo(function BattleEngine({
 
       return {
         [stat]: {
-          [heroA.name]: powerstatA,
-          [heroB.name]: powerstatB,
+          [heroAName]: powerstatA,
+          [heroBName]: powerstatB,
         },
       };
     });
@@ -61,7 +73,7 @@ const BattleEngine = memo(function BattleEngine({
     return {
       heroA: heroA.name,
       heroB: heroB.name,
-      score: { [heroA.name]: heroAScore, [heroB.name]: heroBScore },
+      score: { [heroAName]: heroAScore, [heroBName]: heroBScore },
       winner:
         heroAScore === heroBScore
           ? 'draw'

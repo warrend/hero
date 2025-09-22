@@ -63,7 +63,7 @@ export default function TeamList() {
         onClick={handleStartBattle}
         disabled={!gameReady}
         type="button"
-        className="bg-slate-500 text-white font-medium rounded-sm text-sm px-3 py-1.5 disabled:bg-gray-400 disabled:cursor-not-allowed mb-6"
+        className="bg-slate-500 text-white font-medium rounded-sm text-sm px-3 py-1.5 disabled:bg-gray-400 disabled:cursor-not-allowed mb-6 cursor-pointer"
       >
         Preview Battle
       </button>

@@ -13,7 +13,7 @@ export default function Button({
 }) {
   return (
     <button
-      className={`mb-6 bg-${color}-100 border border-${color}-700 text-black font-medium py-1 px-3 rounded text-sm hover:bg-${color}-200 transition-colors ${className}`}
+      className={`mb-6 bg-${color}-100 border border-${color}-700 text-black font-medium py-1 px-3 rounded text-sm hover:bg-${color}-200 transition-colors cursor-pointer ${className}`}
       onClick={onClick}
     >
       {children}
