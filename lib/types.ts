@@ -77,11 +77,6 @@ type MatchResult = {
     [stat: string]: {
       [heroName: string]: number;
     };
-    // & {
-    //   weight?: number;
-    //   margin?: number;
-    //   points?: number;
-    // };
   }[];
   totalPoints?: { heroA: number; heroB: number };
 };

@@ -65,7 +65,7 @@ export default function TeamList() {
         type="button"
         className="bg-slate-500 text-white font-medium rounded-sm text-sm px-3 py-1.5 disabled:bg-gray-400 disabled:cursor-not-allowed mb-6"
       >
-        Start Battle!
+        Preview Battle
       </button>
       <section>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

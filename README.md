@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hero Battle App
 
-## Getting Started
+3x3 Superhero battle app.
 
-First, run the development server:
+## Getting started
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Add `NEXT_PUBLIC_SUPERHERO_API_KEY=your-api-key` into `.env.local` file.
+
+Run `pnpm dev` or `npm run dev` to start the project.
+
+## Project Structure
+
+```
+/app
+├── page.tsx              // Main page - team selection interface
+├── layout.tsx
+├── _ui/
+│   ├── hero-list/
+│   ├── search-bar/
+│   ├── search-modal/
+│   ├── team-list/
+│   └── team-select/
+└── battle/
+    ├── page.tsx          // Battle setup and results
+    └── _ui/
+        ├── battle-engine/
+        ├── battle-results/
+        └── team-sheet/
+
+/components              // Reusable UI components
+├── button/
+├── input/
+├── modal/
+├── power-stats/
+└── stats/
+
+/lib                     // Utilities, types, and provider
+├── fetch.ts
+├── types.ts
+└── team-provider.tsx
+
+/state                   // Application state management
+├── battleReducer.ts
+└── teamReducer.ts
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Reasoning
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+REMOVE THIS
+memo or useMemo for performance?
+useMemo or callback for the game engine func
+check for unncesseary rerenders
+/REMOVE THIS
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The search component captures the user's input and creates a query param. The server component uses the query param to search and display the hero list.
 
-## Learn More
+Team members are tracked/added/removed using the teamReducer. Once the team is set, the Preview Battle button adds the team IDs as query params and navigates to the battle screen. The query params are then used to fetch all of the heroes for the battle (to avoid the page from breaking on refresh and create a sharable link).
 
-To learn more about Next.js, take a look at the following resources:
+When the battle starts, the teams play round robin. Each player match is added to the battleReducer and the winner is tracked as well as the overall winner. The statWeights are factored into each match.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The stats for the matches are shown as well as the individual match results.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+If I had more time, I'd focus on:
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Building out more reusable components, like inputs, buttons, etc.
+- Add a UI to adjust weights.

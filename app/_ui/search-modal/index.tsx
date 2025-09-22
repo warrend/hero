@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, ReactNode } from 'react';
 import SearchBar from '../search-bar';
 import SearchIcon from '@/components/search-icon';
 import Modal from '@/components/modal';
+import Button from '@/components/button';
 
 export default function SearchModal({
   query,
@@ -28,13 +29,13 @@ export default function SearchModal({
           </div>
         </div>
       </Modal>
-      <button
-        className="bg-slate-100 hover:bg-slate-300 text-slate-600 w-10 h-10 rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-200"
+      <Button
+        className="hover:bg-slate-300 w-10 h-10 rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-200"
         onClick={() => setOpen(true)}
-        title="Search Heroes"
+        color="slate"
       >
         <SearchIcon />
-      </button>
+      </Button>
     </>
   );
 }
