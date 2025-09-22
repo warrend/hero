@@ -46,8 +46,8 @@ const BattleEngine = memo(function BattleEngine({
     let heroBName;
 
     if (heroA.name === heroB.name) {
-      heroAName = `${heroA.name}A`;
-      heroBName = `${heroB.name}B`;
+      heroAName = `${heroA.name} A`;
+      heroBName = `${heroB.name} B`;
     } else {
       heroAName = heroA.name;
       heroBName = heroB.name;
@@ -71,8 +71,8 @@ const BattleEngine = memo(function BattleEngine({
     });
 
     return {
-      heroA: heroA.name,
-      heroB: heroB.name,
+      heroA: heroAName,
+      heroB: heroBName,
       score: { [heroAName]: heroAScore, [heroBName]: heroBScore },
       winner:
         heroAScore === heroBScore
