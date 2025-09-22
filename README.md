@@ -46,12 +46,6 @@ Run `pnpm dev` or `npm run dev` to start the project.
 
 ## Reasoning
 
-REMOVE THIS
-memo or useMemo for performance?
-useMemo or callback for the game engine func
-check for unncesseary rerenders
-/REMOVE THIS
-
 The search component captures the user's input and creates a query param. The server component uses the query param to search and display the hero list.
 
 Team members are tracked/added/removed using the teamReducer. Once the team is set, the Preview Battle button adds the team IDs as query params and navigates to the battle screen. The query params are then used to fetch all of the heroes for the battle (to avoid the page from breaking on refresh and create a sharable link).
