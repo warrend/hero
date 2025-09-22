@@ -1,6 +1,6 @@
 # Hero Battle App
 
-3x3 Superhero battle app.
+3x3 superhero battle app.
 
 ## Getting started
 
