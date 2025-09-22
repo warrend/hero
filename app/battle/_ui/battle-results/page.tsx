@@ -59,7 +59,7 @@ export default function BattleResults({
               animation: 'slowPulse 2s ease-in-out infinite',
             }}
           >
-            Let the battle begin!
+            LET THE BATTLE BEGIN!
           </h1>
         </div>
 
