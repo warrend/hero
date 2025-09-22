@@ -57,10 +57,7 @@ export default function BattleDetails({ results }: { results: BattleResults }) {
         <h3 className="text-sm text-slate-400 font-semibold mb-4">Battles</h3>
         <div className="space-y-3">
           {allBattleResults.map((match, index) => (
-            <div
-              key={index}
-              className="bg-gray-50 border border-gray-200 rounded-sm p-2"
-            >
+            <div key={index} className=" border-b border-gray-200 p-2">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3 flex-1 justify-end">
                   <span

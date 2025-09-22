@@ -80,11 +80,11 @@ export default async function Battle({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
           <h2 className="text-xl font-semibold mb-4">Team A</h2>
-          <TeamSheet team={teamA} stats={teamAStats} />
+          <TeamSheet team={teamA} />
         </div>
         <div>
           <h2 className="text-xl font-semibold mb-4">Team B</h2>
-          <TeamSheet team={teamB} stats={teamBStats} />
+          <TeamSheet team={teamB} />
         </div>
       </div>
     </div>

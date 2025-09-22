@@ -1,6 +1,7 @@
+import { Stats } from '@/lib/types';
 import { useReducer } from 'react';
 
-type TeamHero = { name: string; id: string };
+type TeamHero = { name: string; id: string; stats?: Stats; origin?: string };
 
 export type State = {
   teamA: TeamHero[];

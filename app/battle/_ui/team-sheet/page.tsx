@@ -1,19 +1,9 @@
 import { ImageFallback } from '@/components/image-fallback';
-import PowerStats from '@/components/power-stats';
-import { HeroByIdResponse, Stats } from '@/lib/types';
+import { HeroByIdResponse } from '@/lib/types';
 
-export function TeamSheet({
-  team,
-  stats,
-}: {
-  team: HeroByIdResponse[];
-  stats: Stats;
-}) {
+export function TeamSheet({ team }: { team: HeroByIdResponse[] }) {
   return (
     <div className="space-y-2 bg-slate-50 p-5 rounded-sm">
-      {/* <div className="mb-6">
-        <PowerStats stats={stats} title="Team Stats" />
-      </div> */}
       <div className="text-sm mb-4 text-slate-500 font-medium">Players</div>
       {team.map(({ id, name, image }) => (
         <div key={id}>

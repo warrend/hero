@@ -9,11 +9,7 @@ import { ImageFallback } from '@/components/image-fallback';
 export default async function HeroList({ query }: { query: string }) {
   const data = await searchSuperhero(query);
 
-  if (
-    data.response === 'success' &&
-    !data.results.length &&
-    data['results-for'] !== ''
-  ) {
+  if (data.response === 'error') {
     return <div className="text-center text-slate-400">No results.</div>;
   }
 
@@ -55,7 +51,16 @@ export default async function HeroList({ query }: { query: string }) {
               </div>
               <PowerStats stats={hero.powerstats} />
             </div>
-            <TeamSelect heroId={hero.id} heroName={hero.name} />
+            <TeamSelect
+              heroId={hero.id}
+              heroName={hero.name}
+              stats={hero.powerstats}
+              origin={`${
+                hero.biography['place-of-birth'] !== '-'
+                  ? hero.biography['place-of-birth']
+                  : 'Birthplace Unknown'
+              } - ${hero.biography.publisher}`}
+            />
           </div>
         ))}
       </div>

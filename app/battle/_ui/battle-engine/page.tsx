@@ -19,8 +19,6 @@ const BattleEngine = memo(function BattleEngine({
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  console.log({ state });
-
   const calculateTeamStats = useCallback((team: Team) => {
     const teamStats: Record<
       keyof Stats,

@@ -1,15 +1,20 @@
 'use client';
 
 import { useTeams } from '@/lib/team-provider';
+import { Stats } from '@/lib/types';
 import { TeamActionTypes } from '@/state/teamReducer';
 import React from 'react';
 
 export default function TeamSelect({
   heroId,
   heroName,
+  stats,
+  origin,
 }: {
   heroId: string;
   heroName: string;
+  stats: Stats;
+  origin: string;
 }) {
   const { state, dispatch } = useTeams();
 
@@ -46,7 +51,10 @@ export default function TeamSelect({
           onClick={() =>
             dispatch({
               type: TeamActionTypes.ADD,
-              payload: { teamId, hero: { id: heroId, name: heroName } },
+              payload: {
+                teamId,
+                hero: { id: heroId, name: heroName, stats, origin },
+              },
             })
           }
           disabled={alreadyOnATeam}

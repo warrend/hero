@@ -1,11 +1,13 @@
 'use client';
 
+import Modal from '@/components/modal';
+import PowerStats from '@/components/power-stats';
 import { Teams, TeamId } from '@/constants';
 import { useTeams } from '@/lib/team-provider';
 import { typedEntries } from '@/lib/typed-object';
-import { State, TeamActionTypes } from '@/state/teamReducer';
+import { TeamActionTypes } from '@/state/teamReducer';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function TeamList() {
   const searchParams = useSearchParams();
@@ -22,31 +24,53 @@ export default function TeamList() {
     id: string;
     name: string;
     teamId: TeamId;
-  }) => (
-    <div
-      key={id}
-      className="flex items-center justify-between border-b border-gray-200 pb-2 mb-2"
-    >
-      <div className="flex items-center">
-        <span className="mr-3 text-sm text-slate-600 font-medium">#{id}</span>
-        <div className="font-semibold">{name}</div>
-      </div>
-      <button
-        onClick={() =>
-          dispatch({
-            type: TeamActionTypes.REMOVE,
-            payload: {
-              teamId: teamId,
-              hero: { id: id, name: name },
-            },
-          })
-        }
-        className="text-red-500 hover:text-red-700 hover:bg-red-50 px-2 py-1 rounded text-sm font-medium transition-colors"
+  }) => {
+    const [open, setOpen] = useState(false);
+    const { state } = useTeams();
+
+    const hero = state[teamId].find((h) => h.id === id);
+
+    return (
+      <div
+        key={id}
+        className="flex items-center justify-between border-b border-gray-200 pb-2 mb-2"
       >
-        Remove
-      </button>
-    </div>
-  );
+        <Modal open={open} onClose={() => setOpen(false)}>
+          {hero?.stats && (
+            <div className="max-w-[75%] mx-auto mt-4">
+              <PowerStats stats={hero?.stats} />
+            </div>
+          )}
+        </Modal>
+        <div className="flex items-center">
+          <div>
+            <div className="font-semibold" onClick={() => setOpen(true)}>
+              <span className="mr-3 text-sm text-slate-600 font-medium">
+                #{id}
+              </span>
+              <span className="cursor-pointer underline">{name}</span>
+            </div>
+            <div className="text-sm text-slate-500">{hero?.origin}</div>
+          </div>
+        </div>
+
+        <button
+          onClick={() =>
+            dispatch({
+              type: TeamActionTypes.REMOVE,
+              payload: {
+                teamId: teamId,
+                hero: { id: id, name: name },
+              },
+            })
+          }
+          className="text-red-500 hover:text-red-700 hover:bg-red-50 px-2 py-1 rounded text-sm font-medium transition-colors"
+        >
+          Remove
+        </button>
+      </div>
+    );
+  };
 
   function handleStartBattle() {
     if (gameReady) {
